@@ -35,3 +35,23 @@ export default function Home() {
     </div>
   )
 }
+
+/**
+ *  1. Criar nova versão do component
+ *  2. Comparar com a versão anterior
+ *  3. Se houver alteração, atualizar alterações
+ */
+
+/**
+ * 1. Pure functional Component
+ * 2. Renders too often,
+ * 3. Re-renders with same props
+ * 4. Medium to big size
+ */
+
+/**
+ * Usememo / useCallback
+ * 
+ * 1. Cálculos pesados
+ * 2. Igualdade referencial (repasse de informação entre componentes pai -> filho)
+ */
