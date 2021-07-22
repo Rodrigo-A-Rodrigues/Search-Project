@@ -1,3 +1,4 @@
+import { Box, Text } from "@chakra-ui/react";
 import React, {useMemo} from "react";
 import { ProductItem } from "./ProductItem";
 
@@ -7,24 +8,28 @@ interface SearchResultsProps {
     price: number;
     title: string;
   }>
+  onAddToWishlist: (id:number) => void;
 }
 
-export function SearchResults({ results } : SearchResultsProps) {
+export function SearchResults({ results, onAddToWishlist } : SearchResultsProps) {
   const totalPrice = useMemo(() => {
     return results.reduce((total, product) => {
       return total + product.price;
     },0)
   }, [results])
   return (
-    <div>
-      <h2>{totalPrice}</h2>
+    <Box>
+      <Text as="h1" fontSize="3xl" mb="24">{totalPrice}</Text>
 
       {results.map(product => {
         return (
-          // eslint-disable-next-line react/jsx-key
-          <ProductItem product={product} />
+          <ProductItem 
+            key={product.id}
+            product={product} 
+            onAddToWishlist={onAddToWishlist}
+          />
         );
       })}
-    </div>
+    </Box>
   )
 }

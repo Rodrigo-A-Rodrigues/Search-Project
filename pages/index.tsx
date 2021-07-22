@@ -1,9 +1,13 @@
-import { FormEvent, useState } from "react"
+import { SearchIcon } from "@chakra-ui/icons";
+import { Box, Text, Input, Flex, IconButton, Button, useToast } from "@chakra-ui/react";
+import React, { FormEvent, useState } from "react"
 import { SearchResults } from "../components/SearchResults";
 
 export default function Home() {
   const [search, setSearch] = useState('');
   const [results, setResults] = useState([]);
+
+  const toast = useToast();
   
   async function handleSearch(event: FormEvent) {
     event.preventDefault();
@@ -18,21 +22,58 @@ export default function Home() {
     setResults(data);
   }
 
+  async function addToWishlist(id: number) {
+    console.log(id)
+  }
+
   return (
-    <div>
-      <h1>Search</h1>
+    <Box
+      w="100vw"
+      h="100vh"
+      align="center"
+      justifyContent="space-between"
+      px="10"
+      py="32"
+    >
+      <Text as="h1" fontSize="6xl" mb="12">Search</Text>
 
       <form onSubmit={handleSearch}>
-        <input 
-          type="text" 
-          value={search} 
-          onChange={e => setSearch(e.target.value)} 
-        />
-        <button type="submit">Buscar</button>
+        <Flex maxW="600px" mb="12">
+          <Input 
+            variant="flushed" 
+            placeholder="Search" 
+            type="text" 
+            value={search} 
+            onChange={e => setSearch(e.target.value)} 
+            mr="5"
+          />
+          <Button 
+            colorScheme="blackAlpha"
+            w="45px"
+            type="submit"
+            onClick={() =>
+              toast({
+                title: "Search Products",
+                description: "Results:",
+                duration: 9000,
+                isClosable: true,
+              })
+            }
+          >
+            <IconButton 
+              colorScheme="blackAlpha"
+              aria-label="Search database" 
+              icon={<SearchIcon />} 
+            />
+          </Button>
+        </Flex>
       </form>
 
-      <SearchResults results={results} />
-    </div>
+      <SearchResults 
+        results={results} 
+        onAddToWishlist={addToWishlist}    
+      />
+    </Box>
   )
 }
 
@@ -52,6 +93,11 @@ export default function Home() {
 /**
  * Usememo / useCallback
  * 
+ * Usememo:
  * 1. Cálculos pesados
  * 2. Igualdade referencial (repasse de informação entre componentes pai -> filho)
+ * 
+ * useCallback:
+ * 1. 
+ * 2.
  */
